@@ -1,0 +1,59 @@
+<html>
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <title>&Phi; Rechner</title>
+    <script>
+    function calculate(){
+        function gaussian(x, sigma, mu){
+            return (1/(sigma*Math.sqrt(2*Math.PI)))*Math.pow(Math.E,-0.5*(((x-mu)/sigma)*((x-mu)/sigma)))
+        }
+        let lowerbound = Number(window.document.getElementById("lowerbound").value);
+        let upperbound = Number(window.document.getElementById("upperbound").value);
+        let sigma = Number(window.document.getElementById("sigma").value);
+        let mu = Number(window.document.getElementById("mu").value);
+        if(sigma === 0){
+            sigma = 1;
+        }
+        if(lowerbound > upperbound){
+            document.getElementById('solution').innerHTML = "Untere Grenze muss kleiner sein als obere Grenze.";
+        }else{
+        let STRIPS = 1000000.0;
+        let STRIP_WIDTH = (upperbound-lowerbound)/STRIPS;
+        console.log(STRIP_WIDTH)
+        let integralValue = 0.0;
+        for(let i = 0; i < Math.floor(STRIPS); i++){
+            let x = lowerbound + (i * STRIP_WIDTH);
+            integralValue += gaussian(x,sigma, mu)*STRIP_WIDTH;
+        }
+        document.getElementById('solution').innerHTML = Math.round(integralValue*10000)/10000;
+        }
+    }
+    </script>
+</head>
+<body>
+    <h1 style="text-align:center">&Phi; Rechner</h1>
+    <p style="text-align:center">Kommazahlen mit Punkten eintragen. &mu; und &sigma; sind standardmäßig 0 und 1.</p>
+    <div class="input-group mb">
+    <input type="text" class="form-control" name="lowerbound" id="lowerbound" placeholder="untere Grenze">
+    </div>
+    <br>
+    <div class="input-group mb">
+    <input type="text" class="form-control" name="lowerbound" id="upperbound" placeholder="obere Grenze">
+    </div>
+    <br>
+    <div class="input-group mb">
+    <input type="text" class="form-control" name="mu" id="mu" placeholder="Erwartungswert &mu;">
+    </div>
+    <br>
+    <div class="input-group mb">
+    <input type="text" class="form-control" name="sigma" id="sigma" placeholder="Standardabweichung &sigma;">
+    </div>
+    <br>
+    <button type="button" style="background-color:blanchedalmond" class="btn btn-default" onclick=calculate()>ausrechnen</button>
+    <br>
+    <div style="text-align:center" id="solution"></div>
+</body>
+
+
+</html>
+
