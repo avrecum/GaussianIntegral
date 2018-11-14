@@ -12,6 +12,7 @@
         let upperbound = Number(window.document.getElementById("upperbound").value);
         let sigma = Number(window.document.getElementById("sigma").value);
         let mu = Number(window.document.getElementById("mu").value);
+        let digits = Number(window.document.getElementById("digits").value);
         if(sigma === 0){
             sigma = 1;
         }
@@ -27,7 +28,7 @@
             let x = lowerbound + (i * STRIP_WIDTH);
             integralValue += gaussian(x,sigma, mu)*STRIP_WIDTH;
         }
-        document.getElementById('solution').innerHTML = Math.round(integralValue*10000)/10000;
+        document.getElementById('solution').innerHTML = Math.round(integralValue*Math.pow(10,digits))/Math.pow(10, digits);
         }
     }
     </script>
@@ -51,6 +52,10 @@
     <input type="text" class="form-control" name="sigma" id="sigma" placeholder="Standardabweichung &sigma;">
     </div>
     <br>
+    <div class="input-group mb">
+        <input type="text" class="form-control" name="digits" id="digits" value="4" placeholder="Nachkommastellen">
+        </div>
+        <br>
     <button type="button" style="background-color:blanchedalmond" class="btn btn-default" onclick=calculate()>ausrechnen</button>
     <br>
     <div style="text-align:center" id="solution"></div>
