@@ -18,7 +18,8 @@
         if(lowerbound > upperbound){
             document.getElementById('solution').innerHTML = "Untere Grenze muss kleiner sein als obere Grenze.";
         }else{
-        let STRIPS = 1000000.0;
+        let STRIPS_PER_UNIT = 10000.0;
+        let STRIPS = STRIPS_PER_UNIT * (upperbound-lowerbound);
         let STRIP_WIDTH = (upperbound-lowerbound)/STRIPS;
         console.log(STRIP_WIDTH)
         let integralValue = 0.0;
